@@ -1,11 +1,12 @@
 const path = require('path')
-const webpack = require('webpack')
 const minJSON = require('jsonminify')
-const Fiber = require('fibers')
 
 const plugins = {
   progress: require('webpackbar'),
-  clean: require('clean-webpack-plugin'),
+  clean: (() => {
+    const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+    return CleanWebpackPlugin
+  })(),
   extractCSS: require('mini-css-extract-plugin'),
   sync: require('browser-sync-webpack-plugin'),
   html: require('html-webpack-plugin'),
@@ -75,9 +76,11 @@ module.exports = (env = {}, argv) => {
               loader: 'sass-loader',
               options: {
                 implementation: require('sass'),
-                fiber: Fiber,
-                outputStyle: 'expanded',
-                sourceMap: !isProduction
+                sassOptions: {
+                  fiber: require('fibers'),
+                  outputStyle: 'expanded',
+                  sourceMap: !isProduction
+                }
               }
             }
           ]
@@ -108,7 +111,7 @@ module.exports = (env = {}, argv) => {
             {
               loader: 'image-webpack-loader',
               options: {
-                bypassOnDebug: !isProduction,
+                disable: !isProduction,
                 mozjpeg: {
                   progressive: true,
                   quality: 65
@@ -117,18 +120,21 @@ module.exports = (env = {}, argv) => {
                   enabled: false
                 },
                 pngquant: {
-                  quality: '65-90',
+                  quality: [0.65, 0.90],
                   speed: 4
                 },
                 gifsicle: {
                   interlaced: false
+                },
+                webp: {
+                  quality: 75
                 }
               }
             }
           ]
         },
         {
-          test: /\.(ttf|otf|eot|svg|woff(2)?)$/i,
+          test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
           exclude: /images/,
           use: [{
             loader: 'file-loader',
@@ -142,15 +148,8 @@ module.exports = (env = {}, argv) => {
         {
           test: /\.html$/,
           use: {
-            loader: 'html-loader',
-            options: {
-              minimize: true,
-              removeComments: true,
-              collapseWhitespace: true,
-              removeScriptTypeAttributes: true,
-              removeStyleTypeAttributes: true
-            }
-          },
+            loader: 'html-loader'
+          }
         }
       ]
     },
@@ -178,29 +177,21 @@ module.exports = (env = {}, argv) => {
             removeStyleLinkTypeAttributes: true
           }
         }),
-        new plugins.html({
-          template: 'article.html',
-          filename: 'article.html',
-          minify: {
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true
-          }
-        }),
         new plugins.progress({
           color: '#5C95EE'
         })
       ]
 
       const production = [
-        new plugins.clean(['dist']),
-        new plugins.copy([
-          {
-            from: 'data/**/*.json',
-            transform: content => {
-              return minJSON(content.toString())
+        new plugins.clean(),
+        new plugins.copy({
+          patterns: [
+            {
+              from: 'data/**/*.json',
+              transform: content => minJSON(content.toString())
             }
-          }
-        ]),
+          ]
+        }),
         new plugins.sri({
           hashFuncNames: ['sha384'],
           enabled: true

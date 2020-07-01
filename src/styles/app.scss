@@ -1,7 +1,6 @@
-// Bootstrap
-@import 'vendor/bootstrap/main';
+// Bootstrap Core
+@import 'vendor/bootstrap/core';
 
 // App specific
-@import 'app/mixins';
 @import 'app/variables';
 @import 'app/base';
