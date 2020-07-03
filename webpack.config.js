@@ -20,7 +20,8 @@ const plugins = {
   html: require('html-webpack-plugin'),
   copy: require('copy-webpack-plugin'),
   sri: require('webpack-subresource-integrity'),
-  nunjucks: require('nunjucks-webpack-plugin')
+  nunjucks: require('nunjucks-webpack-plugin'),
+  extraWatch: require('extra-watch-webpack-plugin')
 }
 
 module.exports = (env = {}, argv) => {
@@ -169,8 +170,7 @@ module.exports = (env = {}, argv) => {
       overlay: {
         warnings: true,
         errors: true
-      },
-      quiet: true
+      }
     },
 
     plugins: (() => {
@@ -193,11 +193,6 @@ module.exports = (env = {}, argv) => {
               to: "home.html",
               context: parse(fs.readFileSync('./src/data/home.json'))
             }
-            // {
-            //   from: path.resolve(__dirname, 'src/templates/home.njk'),
-            //   to: "home.html",
-            //   context: JSON.parse('data/home.json')
-            // }
           ],
           configure: nunjucksEnv
         }),
@@ -223,6 +218,10 @@ module.exports = (env = {}, argv) => {
       ]
 
       const development = [
+        new plugins.extraWatch({
+          files: [ './src/templates/**/*.njk', './src/data/**/*.json']
+        }),
+
         new plugins.sync(
           {
             host: 'localhost',

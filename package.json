@@ -63,6 +63,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "bootstrap": "^4.5.0",
+    "extra-watch-webpack-plugin": "^1.0.3",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1"
   }
