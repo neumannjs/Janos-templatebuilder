@@ -1,5 +1,13 @@
 const path = require('path')
 const minJSON = require('jsonminify')
+const fs = require('fs')
+const { parse } = require('flatted')
+const nunjucks = require('nunjucks')
+const nunjucksDateFilter = require('nunjucks-date-filter')
+
+const nunjucksEnv = nunjucks.configure('./src/templates')
+
+nunjucksEnv.addFilter('date', nunjucksDateFilter)
 
 const plugins = {
   progress: require('webpackbar'),
@@ -11,7 +19,8 @@ const plugins = {
   sync: require('browser-sync-webpack-plugin'),
   html: require('html-webpack-plugin'),
   copy: require('copy-webpack-plugin'),
-  sri: require('webpack-subresource-integrity')
+  sri: require('webpack-subresource-integrity'),
+  nunjucks: require('nunjucks-webpack-plugin')
 }
 
 module.exports = (env = {}, argv) => {
@@ -177,6 +186,21 @@ module.exports = (env = {}, argv) => {
             removeStyleLinkTypeAttributes: true
           }
         }),
+        new plugins.nunjucks({
+          templates: [
+            {
+              from: 'home.njk',
+              to: "home.html",
+              context: parse(fs.readFileSync('./src/data/home.json'))
+            }
+            // {
+            //   from: path.resolve(__dirname, 'src/templates/home.njk'),
+            //   to: "home.html",
+            //   context: JSON.parse('data/home.json')
+            // }
+          ],
+          configure: nunjucksEnv
+        }),
         new plugins.progress({
           color: '#5C95EE'
         })
@@ -184,14 +208,14 @@ module.exports = (env = {}, argv) => {
 
       const production = [
         new plugins.clean(),
-        new plugins.copy({
-          patterns: [
-            {
-              from: 'data/**/*.json',
-              transform: content => minJSON(content.toString())
-            }
-          ]
-        }),
+        // new plugins.copy({
+        //   patterns: [
+        //     {
+        //       from: 'data/**/*.json',
+        //       transform: content => minJSON(content.toString())
+        //     }
+        //   ]
+        // }),
         new plugins.sri({
           hashFuncNames: ['sha384'],
           enabled: true

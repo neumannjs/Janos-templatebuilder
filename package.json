@@ -42,11 +42,15 @@
     "cssnano": "^4.1.10",
     "fibers": "^5.0.0",
     "file-loader": "^6.0.0",
+    "flatted": "^3.0.2",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
     "image-webpack-loader": "^6.0.0",
     "jsonminify": "^0.4.1",
     "mini-css-extract-plugin": "^0.9.0",
+    "nunjucks": "^3.2.1",
+    "nunjucks-date-filter": "^0.1.1",
+    "nunjucks-webpack-plugin": "^5.0.0",
     "postcss-loader": "^3.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
@@ -57,7 +61,7 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-pro": "^5.13.0",
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1"

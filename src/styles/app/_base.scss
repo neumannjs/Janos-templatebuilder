@@ -7,7 +7,8 @@ body {
   display: inline-block;
 }
 
-body > header, main  {
+body > header,
+main {
   @include make-row();
   @extend .mx-5;
 }
@@ -71,7 +72,8 @@ article header {
   border-bottom: solid 1px $gray-400;
 }
 
-article header h1, article header p {
+article header h1,
+article header p {
   @extend .text-center;
   .home & {
     @extend .text-left;
@@ -121,7 +123,8 @@ aside h2 {
   font-variant: small-caps;
 }
 
-article a, aside a {
+article a,
+aside a {
   color: $gray-900;
   text-decoration-line: underline;
   text-decoration-skip-ink: auto;
