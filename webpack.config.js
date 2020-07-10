@@ -2,12 +2,6 @@ const path = require('path')
 const minJSON = require('jsonminify')
 const fs = require('fs')
 const { parse } = require('flatted')
-const nunjucks = require('nunjucks')
-const nunjucksDateFilter = require('nunjucks-date-filter')
-
-const nunjucksEnv = nunjucks.configure('./src/templates')
-
-nunjucksEnv.addFilter('date', nunjucksDateFilter)
 
 const plugins = {
   progress: require('webpackbar'),
@@ -20,7 +14,6 @@ const plugins = {
   html: require('html-webpack-plugin'),
   copy: require('copy-webpack-plugin'),
   sri: require('webpack-subresource-integrity'),
-  nunjucks: require('nunjucks-webpack-plugin'),
   extraWatch: require('extra-watch-webpack-plugin')
 }
 
@@ -156,10 +149,18 @@ module.exports = (env = {}, argv) => {
           }]
         },
         {
-          test: /\.html$/,
-          use: {
-            loader: 'html-loader'
-          }
+          test: /\.njk$/,
+          use: [{
+            loader: 'simple-nunjucks-loader',
+            options: {
+              filters: {
+                date: path.join(__dirname, 'date-filter.js')
+              },
+              searchPaths: [
+                'src/templates'
+              ]
+            }
+          }]
         }
       ]
     },
@@ -170,31 +171,19 @@ module.exports = (env = {}, argv) => {
       overlay: {
         warnings: true,
         errors: true
-      }
+      },
+      stats: 'errors-only'
     },
 
     plugins: (() => {
       let common = [
         new plugins.extractCSS({
           filename: 'styles/[name].css'
-        }),
+        }),        
         new plugins.html({
-          template: 'index.html',
+          template: './templates/home.njk',
           filename: 'index.html',
-          minify: {
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true
-          }
-        }),
-        new plugins.nunjucks({
-          templates: [
-            {
-              from: 'home.njk',
-              to: "home.html",
-              context: parse(fs.readFileSync('./src/data/home.json'))
-            }
-          ],
-          configure: nunjucksEnv
+          templateParameters: parse(fs.readFileSync('./src/data/home.json'))
         }),
         new plugins.progress({
           color: '#5C95EE'
@@ -219,7 +208,7 @@ module.exports = (env = {}, argv) => {
 
       const development = [
         new plugins.extraWatch({
-          files: [ './src/templates/**/*.njk', './src/data/**/*.json']
+          files: [ './src/data/**/*.json']
         }),
 
         new plugins.sync(
@@ -252,7 +241,7 @@ module.exports = (env = {}, argv) => {
       }
     },
 
-    stats: 'errors-only'
+    stats: 'detailed'
   }
 
   return config
