@@ -184,7 +184,7 @@ module.exports = (env = {}, argv) => {
         new plugins.html({
           template: './templates/home.njk',
           filename: 'index.html',
-          templateParameters: require('./src/data/home.js')
+          templateParameters: require('./src/data/loader.js')('./src/data/home.json')
         }),
         new plugins.progress({
           color: '#5C95EE'
