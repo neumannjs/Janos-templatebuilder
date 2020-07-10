@@ -1,7 +1,5 @@
 const path = require('path')
 const minJSON = require('jsonminify')
-const fs = require('fs')
-const { parse } = require('flatted')
 
 const plugins = {
   progress: require('webpackbar'),
@@ -177,13 +175,16 @@ module.exports = (env = {}, argv) => {
 
     plugins: (() => {
       let common = [
+        new plugins.extraWatch({
+          files: ['./src/data/**/*.json']
+        }),
         new plugins.extractCSS({
           filename: 'styles/[name].css'
         }),        
         new plugins.html({
           template: './templates/home.njk',
           filename: 'index.html',
-          templateParameters: parse(fs.readFileSync('./src/data/home.json'))
+          templateParameters: require('./src/data/home.js')
         }),
         new plugins.progress({
           color: '#5C95EE'
@@ -207,10 +208,6 @@ module.exports = (env = {}, argv) => {
       ]
 
       const development = [
-        new plugins.extraWatch({
-          files: [ './src/data/**/*.json']
-        }),
-
         new plugins.sync(
           {
             host: 'localhost',
