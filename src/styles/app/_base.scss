@@ -162,16 +162,18 @@ main > ul li {
 }
 
 section {
-  @extend .w-100;
   text-align: justify;
   @extend .d-block;
   overflow-x: auto;
-  .article & {
-    @include media-breakpoint-up(md) {
-      column-count: 2;
-      max-height: calc(95vh - 294px);
-    }
-  }
+}
+
+main > article > section {
+  @include make-col(8);
+  @include make-col-offset(2);
+}
+
+li > article > section {
+  @include make-col(11);
 }
 
 section p {
