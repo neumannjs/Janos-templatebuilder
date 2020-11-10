@@ -8,13 +8,58 @@ body {
 }
 
 body > header,
+body > footer,
 main {
   @include make-row();
   @extend .mx-5;
 }
 
+.home time,
+.home span.reading-time {
+  color: $gray-600;
+  text-transform: uppercase;
+  @extend .mr-5;
+}
+
+.article time,
+.article span.reading-time {
+  text-transform: uppercase;
+}
+
+.article time {
+  @extend .mr-5;
+}
+
+.article header > span {
+  @extend .w-100;
+  @extend .d-flex;
+  @extend .justify-content-center;
+}
+
 body > header {
   @extend .mt-5;
+}
+
+footer {
+  @extend .pt-4;
+  color: $gray-600;
+  border-top: solid 1px $gray-400;
+  .article & {
+    @extend .my-5;
+  }
+  .home & {
+    @extend .mb-5;
+  }
+}
+
+body.article > footer {
+  @include make-col(8);
+  margin-left: 16.6666666667% !important;
+}
+
+body > footer p {
+  @extend .w-100;
+  @extend .text-center;
 }
 
 body {
@@ -29,11 +74,11 @@ body > header h1 {
   @extend .text-center;
   font-weight: $font-weight-bold;
 }
-nav {
+header > nav {
   @extend .mx-auto;
 }
 
-nav ul {
+header > nav ul {
   @include list-unstyled();
   @extend .d-flex;
   @extend .justify-content-center;
@@ -41,34 +86,51 @@ nav ul {
   @extend .border-dark;
 }
 
-nav ul li {
+header > nav ul li {
   @extend .list-inline-item;
   font-size: 1.3rem;
   text-transform: lowercase;
   font-variant: small-caps;
 }
 
-nav a:hover {
+.article-pagination a:hover,
+header > nav a:hover {
   border-bottom: solid 1px;
   border-bottom-color: blue;
 }
 
+.article-pagination {
+  @extend .w-100;
+}
+.article-pagination-left {
+  float: left;
+}
+
+.article-pagination-right {
+  float: right;
+}
+
+footer ul,
+footer nav {
+  @extend .w-100;
+  @include list-unstyled();
+  @extend .d-flex;
+  @extend .justify-content-center;
+}
+
+footer ul li {
+  @extend .list-inline-item;
+}
 article header {
   @extend .w-100;
-  @extend .mb-2;
+  @extend .mb-3;
   position: relative;
   .home & {
-    @extend .pb-2;
+    @extend .pb-3;
   }
 }
 
-.home article header:after {
-  content: "";
-  position: absolute;
-  width: 90%;
-  height: 1px;
-  bottom: 0;
-  left: 5%;
+.home article header {
   border-bottom: solid 1px $gray-400;
 }
 
@@ -82,6 +144,7 @@ article header p {
 
 .home article header h1 {
   font-size: 2rem;
+  @extend .mb-3;
 }
 
 article header p {
@@ -90,15 +153,23 @@ article header p {
   @extend .mb-1;
 }
 
+.article-pagination,
 article header ul {
   @include list-unstyled();
-  @extend .d-flex;
-  @extend .justify-content-center;
+  text-transform: uppercase;
+  .home & {
+    @extend .d-inline-block;
+    color: $gray-400;
+  }
+  .article & {
+    @extend .my-2;
+    @extend .d-flex;
+    @extend .justify-content-center;
+  }
 }
 
-article header ul li {
+article header li {
   @extend .list-inline-item;
-  @extend .pb-3;
 }
 
 aside {
@@ -118,13 +189,15 @@ aside ul li {
 }
 
 aside h2 {
+  color: black;
   font-size: 1.85rem;
   text-transform: lowercase;
   font-variant: small-caps;
 }
 
 article a,
-aside a {
+aside a,
+footer a {
   color: $gray-900;
   text-decoration-line: underline;
   text-decoration-skip-ink: auto;
@@ -138,6 +211,25 @@ aside a {
       color: $gray-600;
     }
   }
+}
+
+.home header > h1 > a {
+  color: black;
+  &:hover {
+    color: black;
+  }
+}
+
+.home article header span a {
+  color: $gray-500;
+}
+
+footer a {
+  color: $gray-600;
+}
+
+article a {
+  text-decoration-thickness: 1px;
 }
 
 aside {
@@ -157,14 +249,13 @@ main > ul {
   @include list-unstyled();
 }
 
-main > ul li {
-  @extend .mb-4;
+main > ul > li {
+  @extend .mb-5;
 }
 
 section {
   text-align: justify;
   @extend .d-block;
-  overflow-x: auto;
 }
 
 main > article > section {
