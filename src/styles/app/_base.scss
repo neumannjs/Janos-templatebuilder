@@ -266,6 +266,10 @@ li > article > section {
   @include make-col(11);
 }
 
+article {
+  @extend .w-100;
+}
+
 section p {
   @extend .mb-2;
 }
