@@ -14,6 +14,15 @@ main {
   @extend .mx-5;
 }
 
+body > header,
+footer,
+main {
+  @media (max-width: 767.98px) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 .home time,
 .home span.reading-time {
   color: $gray-600;
@@ -28,6 +37,9 @@ main {
 
 .article time {
   @extend .mr-5;
+  @media (max-width: 767.98px) {
+    margin-right: 5px !important;
+  }
 }
 
 .article header > span {
@@ -83,6 +95,7 @@ header > nav ul {
   @extend .justify-content-center;
   @extend .border-top;
   @extend .border-dark;
+  flex-wrap: wrap;
 }
 
 header > nav ul li {
@@ -115,6 +128,7 @@ footer nav {
   @include list-unstyled();
   @extend .d-flex;
   @extend .justify-content-center;
+  flex-wrap: wrap;
 }
 
 footer ul li {
@@ -164,6 +178,7 @@ article header ul {
     @extend .my-2;
     @extend .d-flex;
     @extend .justify-content-center;
+    flex-wrap: wrap;
   }
 }
 
@@ -258,12 +273,16 @@ section {
 }
 
 main > article > section {
-  @include make-col(8);
-  @include make-col-offset(2);
+  @include media-breakpoint-up(md) {
+    @include make-col(8);
+    @include make-col-offset(2);
+  }
 }
 
 li > article > section {
-  @include make-col(11);
+  @include media-breakpoint-up(md) {
+    @include make-col(11);
+  }
 }
 
 article {
