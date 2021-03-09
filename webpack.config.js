@@ -22,14 +22,15 @@ module.exports = (env = {}, argv) => {
     context: path.resolve(__dirname, "src"),
 
     entry: {
-      vendor: ["./scripts/vendor.js"],
-      app: ["./styles/main.scss", "./scripts/app.js"],
+      // vendor: ["./scripts/vendor.js"],
+      // app: ["./styles/main.scss", "./scripts/app.js"],
+      main: ["./styles/main.scss"],
     },
 
     output: {
       path: path.resolve(__dirname, "dist"),
       publicPath: "",
-      filename: "scripts/[name].js",
+      // filename: "scripts/[name].js",
       crossOriginLoading: "anonymous",
     },
 
