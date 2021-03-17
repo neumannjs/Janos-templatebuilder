@@ -1,11 +1,22 @@
 /* Mobile first body margin style */
-body {
-  margin: 3rem 3rem;
-}
+// body {
+//   margin: 3rem 3rem;
+// }
 
-/* Larger than mobile screen */
-@media (min-width: 40rem) {
-  body {
-    margin: 6rem 16rem;
-  }
+// /* Larger than mobile screen */
+// @media (min-width: 40rem) {
+//   body {
+//     margin: 6rem 10rem;
+//   }
+// }
+
+// /* Larger than tablet screen */
+// @media (min-width: 80rem) {
+//   body {
+//     margin: 6rem 16rem;
+//   }
+// }
+
+body {
+  margin: auto;
 }

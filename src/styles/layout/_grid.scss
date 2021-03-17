@@ -1,32 +1,35 @@
 /* Mobile first base grid */
+body {
+  @extend .container;
+}
+
 main {
   @extend .row;
+  flex-wrap: wrap;
 }
 
 main > ul,
 main > aside,
 main > article {
   @extend .column;
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 /* Larger than mobile grid */
-@media (min-width: 40rem) {
-  main > ul, main > article {
+@media (min-width: 80rem) {
+  main > ul {
     flex: 0 0 66.6666%;
     max-width: 66.6666%;
   }
 
-  .home main > ul  {
-    padding-right: 5rem;
-  }
-
-  main > article {
-    margin: auto;
+  .home main > ul {
+    padding-right: 2rem;
   }
 
   main > aside {
     flex: 0 0 33.3333%;
     max-width: 33.3333%;
-    padding-left: 5rem;
+    padding-left: 2rem;
   }
 }

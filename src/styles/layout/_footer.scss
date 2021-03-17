@@ -3,11 +3,13 @@ body > footer {
   // Base style is defined in layout/_navigation.scss
   @extend nav;
   text-align: center;
-  border-top:solid 1px $color-quaternary;
-  margin: 1.5rem 0 0 0 ;
+  justify-content: center;
+  border-top: solid 1px $color-quaternary;
+  margin: 1.5rem 0 0 0;
   ul {
     margin-bottom: 1rem;
     text-transform: none;
+    justify-content: center;
     a {
       color: $color-tertiary;
       text-decoration-line: underline;
@@ -25,7 +27,7 @@ body > footer {
 }
 
 .article footer {
-    flex: 0 0 66.6666%;
-    max-width: 66.6666%;
-    margin: auto;
+  flex: 0 0 66.6666%;
+  max-width: 66.6666%;
+  margin: auto;
 }
