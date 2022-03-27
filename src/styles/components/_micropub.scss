@@ -1,0 +1,171 @@
+.h-entry .u-author img,
+.h-entry .p-author img {
+  border-radius: 0.5rem;
+}
+
+.h-cite .h-card img.u-photo,
+.tweet-container .h-card img.u-photo {
+  width: 48px;
+  height: 48px;
+  margin-right: 0.75rem;
+}
+
+.h-cite .h-card a {
+  &:not(:first-of-type) {
+    margin-left: 0.5rem;
+  }
+  font-size: 1.3rem;
+  color: $color-tertiary;
+}
+
+.tweet-container,
+.h-cite {
+  p,
+  ul {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.h-cite .h-card a.p-name {
+  color: $color-primary;
+}
+
+.tweet {
+  width: 550px;
+}
+
+.tweet-container {
+  display: flex;
+  width: 610px;
+}
+
+.p-author.h-card {
+  width: 610px;
+  display: flex;
+}
+
+.metadata {
+  width: 610px;
+  i {
+    &:not(:first-of-type) {
+      margin-left: 2rem;
+    }
+  }
+}
+
+// POSSE metadata
+.metadata,
+a.metadata {
+  font-size: 1.3rem;
+  color: $color-tertiary;
+  a {
+    color: $color-tertiary;
+  }
+}
+
+div.h-entry {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: $color-tertiary;
+  max-width: 620px;
+  margin: auto;
+  padding: 5px;
+}
+
+ul.h-feed {
+  margin: auto;
+  list-style: none;
+}
+
+ul.replies,
+ul.reposts,
+ul.likes {
+  list-style: none;
+}
+
+@mixin listicon($bg) {
+  &:before {
+    visibility: visible;
+    position: relative;
+    height: 48px;
+    width: 36px;
+    background-image: $bg;
+    background-repeat: no-repeat;
+    background-size: 28px;
+    background-position: 0px 10px;
+    content: "";
+  }
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+  div.p-author.h-card {
+    width: fit-content;
+    display: flex;
+  }
+  a.p-name.u-url {
+    display: none;
+  }
+}
+
+@mixin icon($bg) {
+  display: inline-block;
+  visibility: hidden;
+  position: relative;
+  width: 13px;
+  &:after {
+    visibility: visible;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 16px;
+    width: 13px;
+    background-image: $bg;
+    background-repeat: no-repeat;
+    content: "";
+  }
+}
+
+ul.reposts {
+  @include listicon(get-icon-repost($color-tertiary));
+}
+
+ul.likes {
+  @include listicon(get-icon-like($color-tertiary));
+}
+
+li.h-cite p.p-content {
+  font-size: 1.5rem;
+  padding-left: calc(48px + 0.75rem);
+  margin-top: calc(-48px + 1.75rem);
+}
+
+ul.replies li.h-cite {
+  margin-top: 1rem;
+  &:not(:last-of-type) {
+    border-bottom: $color-quaternary;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+}
+
+.icon-twitter {
+  @include icon(get-icon-twitter($color-tertiary));
+}
+
+.icon-mastodon {
+  @include icon(get-icon-mastodon($color-tertiary, #fff));
+}
+
+.icon-reply {
+  @include icon(get-icon-reply($color-tertiary));
+}
+
+.icon-like {
+  @include icon(get-icon-like($color-tertiary));
+}
+
+.icon-repost {
+  @include icon(get-icon-repost($color-tertiary));
+}

@@ -66,7 +66,8 @@ main header ul {
   }
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   color: $color-primary;
   text-decoration: underline;
 }

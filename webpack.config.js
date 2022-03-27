@@ -195,6 +195,27 @@ module.exports = (env = {}, argv) => {
             "./src/data/article.json"
           ),
         }),
+        new plugins.html({
+          template: "./templates/micropubpost.njk",
+          filename: "repost.html",
+          templateParameters: require("./src/data/loader.js")(
+            "./src/data/repost.json"
+          ),
+        }),
+        new plugins.html({
+          template: "./templates/micropubpost.njk",
+          filename: "note.html",
+          templateParameters: require("./src/data/loader.js")(
+            "./src/data/note.json"
+          ),
+        }),
+        new plugins.html({
+          template: "./templates/stream.njk",
+          filename: "feed.html",
+          templateParameters: require("./src/data/loader.js")(
+            "./src/data/feed.json"
+          ),
+        }),
         new plugins.progress({
           color: "#5C95EE",
         }),
