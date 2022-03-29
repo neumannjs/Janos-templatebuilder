@@ -169,3 +169,19 @@ ul.replies li.h-cite {
 .icon-repost {
   @include icon(get-icon-repost($color-tertiary));
 }
+
+article ul.replies img.u-photo,
+article ul.reposts img.u-photo,
+article ul.likes img.u-photo {
+  max-width: unset;
+  margin: 0 0.75rem 0 0;
+}
+
+article ul.replies,
+article ul.likes,
+article ul.reposts,
+article div.metadata {
+  width: unset;
+  max-width: 66.6666%;
+  margin-left: 16.6666%;
+}

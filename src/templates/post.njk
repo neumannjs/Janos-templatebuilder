@@ -24,7 +24,13 @@
       <section>
         {{ contents | safe }}
       </section>
-      <script src="{{ rootpath }}assets/scripts/bundle.js" ></script>
+      {% include "components/micropub/_webmentions.njk" %}
+      {% include "components/micropub/_reposts.njk" %}
+      {% include "components/micropub/_likes.njk" %}
+      {% include "components/micropub/_replies.njk" %}
+      {% asyncEach url in libraries %}
+      <script src="{{ url }}" ></script>
+      {% endeach %}
     </article>
   </main>
 {% endblock %}
